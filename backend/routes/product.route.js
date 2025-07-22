@@ -1,6 +1,7 @@
-const ensureAuthenticated = require('../Middlewares/Auth');
+import { Router } from 'express';
+import { ensureAuthenticated } from '../middlewares/auth.middleware.js';
 
-const router = require('express').Router();
+const router = Router();
 
 router.get('/', ensureAuthenticated, (req, res) => {
     console.log('---- logged in user detail ---', req.user);
@@ -13,7 +14,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
             name: "tv",
             price: 20000
         }
-    ])
+    ]);
 });
 
-module.exports = router;
+export default router;

@@ -1,11 +1,12 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 const DBURL = process.env.MONGO_URI;
 const DBNAME = process.env.MONGO_DB;
 
-async function dbconnect() {
+export async function dbconnect() {
     try {
         await mongoose.connect(`${DBURL}/${DBNAME}`);
         console.log("✅ MongoDB Atlas Connected");
@@ -13,5 +14,3 @@ async function dbconnect() {
         console.error("❌ MongoDB Connection Error:", error);
     }
 }
-
-module.exports = dbconnect;

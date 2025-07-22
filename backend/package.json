@@ -9,6 +9,7 @@
     "build": "npm install",
     "dev": "nodemon index.js"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
