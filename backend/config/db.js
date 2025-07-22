@@ -6,7 +6,7 @@ dotenv.config();
 const DBURL = process.env.MONGO_URI;
 const DBNAME = process.env.MONGO_DB;
 
-export async function dbconnect() {
+export async function connectDB() {
     try {
         await mongoose.connect(`${DBURL}/${DBNAME}`);
         console.log("✅ MongoDB Atlas Connected");
