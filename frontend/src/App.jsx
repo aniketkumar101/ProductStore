@@ -22,9 +22,11 @@
 
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Home from './pages/Home';
+import Navbar from "./components/Navbar";
+import Login from './pages/LoginPage';
+import Signup from './pages/SignupPage';
+import Home from './pages/HomePage';
+import Create from './pages/CreatePage';
 import { useState } from 'react';
 import RefrshHandler from './RefrshHandler';
 
@@ -38,11 +40,13 @@ function App() {
   return (
     <div className="App">
       <RefrshHandler setIsAuthenticated={setIsAuthenticated} />
+      <Navbar />
       <Routes>
         <Route path='/' element={<Navigate to="/login" />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
-        <Route path='/home' element={<PrivateRoute element={<Home />} />} />
+        <Route path='/home' element={<PrivateRoute element={<Home/>} />} />
+        <Route path='/create' element={<PrivateRoute element={<Create />} />} />
       </Routes>
     </div>
   );

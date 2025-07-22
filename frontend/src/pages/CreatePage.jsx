@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { handleError, handleSuccess } from '../utils';
 import { ToastContainer } from 'react-toastify';
 
-function Home() {
+function CreatePage() {
     const [loggedInUser, setLoggedInUser] = useState('');
     const [products, setProducts] = useState('');
     const navigate = useNavigate();
@@ -23,7 +23,6 @@ function Home() {
     const fetchProducts = async () => {
         try {
             //const url = "https://deploy-mern-app-1-api.vercel.app/products";
-            //const url = `${process.env.REACT_APP_API_URL}/products`;
             const url = `${import.meta.env.VITE_API_URL}/products`;
             const headers = {
                 headers: {
@@ -60,4 +59,4 @@ function Home() {
     )
 }
 
-export default Home
+export default CreatePage;

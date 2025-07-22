@@ -3,49 +3,45 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import { handleError, handleSuccess } from '../utils';
 
-function Login() {
+function SignupPage() {
 
-    const [loginInfo, setLoginInfo] = useState({
+    const [signupInfo, setSignupInfo] = useState({
+        name: '',
         email: '',
         password: ''
     })
 
     const navigate = useNavigate();
-
     const handleChange = (e) => {
         const { name, value } = e.target;
-        console.log(name, value);
-        const copyLoginInfo = { ...loginInfo };
-        copyLoginInfo[name] = value;
-        setLoginInfo(copyLoginInfo);
+        const copySignupInfo = { ...signupInfo };
+        copySignupInfo[name] = value;
+        setSignupInfo(copySignupInfo);
     }
 
-    const handleLogin = async (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
-        const { email, password } = loginInfo;
-        if (!email || !password) {
-            return handleError('email and password are required')
+        const { name, email, password } = signupInfo;
+        if (!name || !email || !password) {
+            return handleError('name, email and password are required')
         }
         try {
-            //const url = `https://deploy-mern-app-1-api.vercel.app/auth/login`;
-            //const url = `${process.env.REACT_APP_API_URL}/auth/login`;
-            const url = `${import.meta.env.VITE_API_URL}/auth/login`;
-
+            //const url = `https://deploy-mern-app-1-api.vercel.app/auth/signup`;
+            //const url = `${process.env.REACT_APP_API_URL}/auth/signup`;
+            const url = `${import.meta.env.VITE_API_URL}/auth/signup`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(loginInfo)
+                body: JSON.stringify(signupInfo)
             });
             const result = await response.json();
-            const { success, message, jwtToken, name, error } = result;
+            const { success, message, error } = result;
             if (success) {
                 handleSuccess(message);
-                localStorage.setItem('token', jwtToken);
-                localStorage.setItem('loggedInUser', name);
                 setTimeout(() => {
-                    navigate('/home')
+                    navigate('/login')
                 }, 1000)
             } else if (error) {
                 const details = error?.details[0].message;
@@ -58,11 +54,21 @@ function Login() {
             handleError(err);
         }
     }
-
     return (
         <div className='container'>
-            <h1>Login</h1>
-            <form onSubmit={handleLogin}>
+            <h1>Signup</h1>
+            <form onSubmit={handleSignup}>
+                <div>
+                    <label htmlFor='name'>Name</label>
+                    <input
+                        onChange={handleChange}
+                        type='text'
+                        name='name'
+                        autoFocus
+                        placeholder='Enter your name...'
+                        value={signupInfo.name}
+                    />
+                </div>
                 <div>
                     <label htmlFor='email'>Email</label>
                     <input
@@ -70,7 +76,7 @@ function Login() {
                         type='email'
                         name='email'
                         placeholder='Enter your email...'
-                        value={loginInfo.email}
+                        value={signupInfo.email}
                     />
                 </div>
                 <div>
@@ -80,12 +86,12 @@ function Login() {
                         type='password'
                         name='password'
                         placeholder='Enter your password...'
-                        value={loginInfo.password}
+                        value={signupInfo.password}
                     />
                 </div>
-                <button type='submit'>Login</button>
-                <span>Does't have an account ?
-                    <Link to="/signup">Signup</Link>
+                <button type='submit'>Signup</button>
+                <span>Already have an account ?
+                    <Link to="/login">Login</Link>
                 </span>
             </form>
             <ToastContainer />
@@ -93,4 +99,4 @@ function Login() {
     )
 }
 
-export default Login
+export default SignupPage;
