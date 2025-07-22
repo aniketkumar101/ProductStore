@@ -1,11 +1,10 @@
 import express from "express";
 import { createProduct, deleteProduct, getProducts, updateProduct } from "../controllers/product.controller.js";
-import { ensureAuthenticated } from '../middlewares/auth.middleware.js';
+import { ensureAuthenticated } from '../middlewares/product.middleware.js';
 
 const router = express.Router();
 
 router.get('/', ensureAuthenticated, (req, res) => {
-    console.log('---- logged in user detail ---', req.user);
     res.status(200).json([
         {
             name: "mobile",
@@ -18,7 +17,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
     ]);
 });
 
-//router.get("/", getProducts);
+router.get("/", getProducts);
 router.post("/", createProduct);
 router.put("/:id", updateProduct);
 router.delete("/:id", deleteProduct);

@@ -3,8 +3,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-import AuthRouter from './routes/auth.route.js';
-import ProductRouter from './routes/product.route.js';
+import user from './routes/user.route.js';
+import product from './routes/product.route.js';
 import { connectDB } from './config/db.js';
 
 dotenv.config();
@@ -21,8 +21,8 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
 
-app.use('/auth', AuthRouter);
-app.use('/products', ProductRouter);
+app.use('/auth', user);
+app.use('/products', product);
 
 app.listen(PORT, () => {
   connectDB();
